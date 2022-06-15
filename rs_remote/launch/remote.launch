@@ -1,6 +1,6 @@
 <launch>
     <include file ="$(find rs_gazebo)/launch/HQ.launch">
-        <arg name="world" value="ss_hq4.world"/>
+        <arg name="world" value="empty.world"/>
         <arg name="gui" value="false"/>
     </include>
 
