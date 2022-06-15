@@ -4,7 +4,7 @@
 
 import rospy
 from rs_msgs.msg import GaitInput
-from Tkinter import Tk, Label, Button, Entry, END
+from tkinter import Tk, Label, Button, Entry, END
 
 
 class RsGui:

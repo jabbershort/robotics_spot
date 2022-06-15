@@ -1,0 +1,12 @@
+<launch>
+    <include file ="$(find rs_gazebo)/launch/HQ.launch">
+        <arg name="world" value="empty_world.world"/>
+        <arg name="gui" value="false"/>
+    </include>
+
+    <include file="$(find rs_gazebo)/launch/robot.launch">
+    </include>
+
+    <include file="$(find rs_inverse)/launch/inverse.launch">
+    </include>
+</launch>

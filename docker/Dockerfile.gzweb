@@ -1,0 +1,62 @@
+FROM ros:noetic-ros-core
+
+#setup bash as default shell
+SHELL ["/bin/bash", "-c"]
+
+#update repo and install dependancies
+RUN apt-get update && \
+	apt-get install -y --no-install-recommends \
+	python3-rosdep \
+	libgazebo11 \
+	gazebo11 \
+	libgazebo11-dev \
+	git \
+	build-essential \
+	cmake \
+	imagemagick \
+	libboost-all-dev \
+	libgts-dev \
+	libjansson-dev \
+	libtinyxml-dev \
+	mercurial \
+	nodejs \
+	pkg-config \
+	psmisc \
+	curl \
+	nodejs \
+	npm \
+	ros-noetic-robot-state-publisher \
+	ros-noetic-rviz \
+	ros-noetic-joint-state-publisher \
+	ros-noetic-joint-state-publisher-gui \
+	ros-noetic-xacro 
+
+#source ROS
+RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc && \
+	source ~/.bashrc
+
+#fetch gz web
+RUN git -c http.sslVerify=false clone --depth=1 --branch gzweb_1.4 https://github.com/osrf/gzweb
+
+ADD rs_description /workspace/src/rs_description
+
+#install and make
+RUN . /opt/ros/noetic/setup.bash; \
+	cd /workspace/; \
+	catkin_make
+RUN echo "source /workspace/devel/setup.bash" >> ~/.bashrc && \
+	source ~/.bashrc
+
+#set model paths
+RUN cd /gzweb/ && export NODE_TLS_REJECT_UNAUTHORIZED=0 && npm run deploy --- -m local
+
+#expose ports
+EXPOSE 8080
+EXPOSE 7681
+
+#Copy the meshes into assets folder 
+RUN mkdir -p /gzweb/http/client/assets//rs_description/meshes/
+RUN cp -R /workspace/src/rs_description/meshes/ /gzweb/http/client/assets//rs_description/
+
+#start npm
+CMD cd /gzweb/ && npm start

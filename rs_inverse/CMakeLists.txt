@@ -7,8 +7,12 @@ catkin_package()
 
 catkin_install_python(
 	PROGRAMS
-	  scripts/env_tester.py
+	    scripts/Bezier.py
+      scripts/env_tester.py
       scripts/gui_spot.py
+      scripts/LegKinematics.py
+      scripts/LieAlgebra.py
+      scripts/SpotKinematics.py
       scripts/stand_mode_spot.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

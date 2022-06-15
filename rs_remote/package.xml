@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>rs_remote</name>
+  <version>0.0.0</version>
+  <description>Keyboard teleop for Spot</description>
+
+  <maintainer email="matt.harrison@atkinsglobal.com">Matt Harrison</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>rs_msgs</run_depend>
+  <run_depend>rospy</run_depend>
+</package>
